@@ -15,11 +15,21 @@
     "!./node_modules/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "typings/main",
-    "typings/main.d.ts"
+    "node_modules"
   ],
   "atom": {
     "rewriteTsconfig": true
-  }
+  },
+  "files": [
+    "./dev/app.component.ts",
+    "./dev/boot.ts",
+    "./dev/car-makes/car-makes-list.component.ts",
+    "./dev/car-makes/car-makes-search.component.ts",
+    "./dev/car-makes/car-makes.service.ts",
+    "./dev/shopping-list/mock-shopping-list.ts",
+    "./dev/shopping-list/shopping-list-item.component.ts",
+    "./dev/shopping-list/shopping-list-new-item.component.ts",
+    "./dev/shopping-list/shopping-list.component.ts",
+    "./dev/shopping-list/shopping-list.service.ts"
+  ]
 }
