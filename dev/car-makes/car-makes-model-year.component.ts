@@ -1,31 +1,31 @@
-import {Component, EventEmitter, Input , Output , OnInit} from '@angular/core';
-import {Control} from '@angular/common';
+import {Component, EventEmitter, Input  , OnInit} from '@angular/core';
 import {CarMakesService} from './car-makes.service';
 
 @Component({
-    selector:'[tableData]',
+    selector:'[table-data]',
     template:`
-        <td>{{model.name}}</td>
-        <td>{{model.year}}</td>
+            <th *ngIf="model.name!= ''">{{model.name}}</th><th *ngIf="model.year!= ''">{{model.year}}</th>
     `
 })
 
 export class CarMakesModelYearComponent implements OnInit{
-    @Input('tableData') model;
+    @Input('table-data') selected;
+    model = {name:'',year:''};
 
     constructor( private _carMakesService: CarMakesService){
     }
 
     ngOnInit(){
-        this._carMakesService.getCarModelYears(this.model.make,this.model.model)
-            .debounceTime(3000)
-            .subscribe(
-                data =>{
-                    this.model = data;
-                    console.log('model');
-                    console.log(this.model);
-                },
-                error => console.error(error)
-            )
+        if(this.selected.i < 10){
+            this._carMakesService.getCarModelYears(this.selected.make,this.selected.model)
+                .subscribe(
+                    data =>{
+                        this.model.year = data.years[0].year;
+                        this.model.name = data.name;
+                    },
+                    error => console.error(error)
+                )
+        }
+
     }
 }

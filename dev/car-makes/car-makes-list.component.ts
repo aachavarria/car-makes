@@ -23,7 +23,8 @@ import {SearchPipe} from './car-makes-filter.pipe';
             <div class="table-container">
                 <table class="table table-hover table-bordered">
                     <tr><th>Model</th><th>First year</th></tr>
-                    <tr *ngFor="let model of selected.models" [tableData]="{make:selected.niceName,model:model.niceName}"></tr>
+                    <tr *ngFor="let model of selected.models; let i = index" [table-data]="{make:selected.niceName,model:model.niceName, i:i}">
+                    </tr>
                 </table>
             </div>
         </section >
@@ -32,6 +33,8 @@ import {SearchPipe} from './car-makes-filter.pipe';
     providers: [CarMakesService],
     pipes:[SearchPipe]
 })
+
+//[ngIf]="i<10" [selected]="{make:selected.niceName,model:model.niceName}"
 
 export class CarMakesListComponent implements OnInit{
     makes = <any>[];
@@ -50,7 +53,6 @@ export class CarMakesListComponent implements OnInit{
             .subscribe(
                 data =>{
                     this.makes = data.makes;
-                    console.log(this.makes);
                 },
                 error => console.error(error)
             )

@@ -34,7 +34,7 @@ header {
 }
 
 .table-container{
-    height: 313px;
+    max-height: 313px;
     overflow: auto;
 }
 table tbody tr{
