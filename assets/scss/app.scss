@@ -1,5 +1,6 @@
-$mainColor: #1351af;
-$width: 60%;
+$text-color: black;
+$headerBgColor:#c13b39;
+$border-color: #ddd;
 
 body {
   padding: 0;
@@ -9,14 +10,33 @@ body {
 }
 
 header {
-  background-color: $mainColor;
-  padding: 16px 0;
+  background-color: $headerBgColor;
+  color:white;
+  height: 153px;
+  h1{
+      margin-top: 38px;
+  }
 }
 
-header .brand {
-  width: $width;
-  margin: auto;
-  color: white;
-  font-weight: bold;
-  font-size: 22px;
+.box{
+    margin-top: -38px;
+    padding: 40px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    background: white;
+    &.second{
+        margin-top: 38px;
+    }
+}
+
+.filter-container{
+    padding-bottom: 40px;
+}
+
+.table-container{
+    height: 313px;
+    overflow: auto;
+}
+table tbody tr{
+    cursor:pointer;
 }

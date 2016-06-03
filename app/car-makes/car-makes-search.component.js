@@ -1,4 +1,4 @@
-System.register(['@angular/core', './car-makes.service'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/common'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,44 +10,43 @@ System.register(['@angular/core', './car-makes.service'], function(exports_1, co
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, car_makes_service_1;
+    var core_1, common_1;
     var CarMakesSearchComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (car_makes_service_1_1) {
-                car_makes_service_1 = car_makes_service_1_1;
+            function (common_1_1) {
+                common_1 = common_1_1;
             }],
         execute: function() {
             CarMakesSearchComponent = (function () {
-                function CarMakesSearchComponent(_carMakesService) {
-                    this._carMakesService = _carMakesService;
-                    this.makes = [];
-                    this.selected = new core_1.EventEmitter();
+                function CarMakesSearchComponent() {
+                    this.delay = 300;
+                    this.update = new core_1.EventEmitter();
+                    this.term = new common_1.Control();
                 }
                 CarMakesSearchComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    this._carMakesService.fetchAllMakes()
-                        .subscribe(function (data) {
-                        _this.makes = data.makes;
-                        console.log(_this.makes);
-                    }, function (error) { return console.error(error); });
+                    this.term.valueChanges
+                        .debounceTime(this.delay)
+                        .subscribe(function (term) { return _this.update.emit(term); });
                 };
-                CarMakesSearchComponent.prototype.selectOnChange = function ($event) {
-                    this.selected.emit($event.target.value);
-                };
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Number)
+                ], CarMakesSearchComponent.prototype, "delay", void 0);
                 __decorate([
                     core_1.Output(), 
                     __metadata('design:type', Object)
-                ], CarMakesSearchComponent.prototype, "selected", void 0);
+                ], CarMakesSearchComponent.prototype, "update", void 0);
                 CarMakesSearchComponent = __decorate([
                     core_1.Component({
                         selector: 'car-makes-search',
-                        template: "\n        <select (change)=\"selectOnChange($event)\">\n            <option *ngFor=\"let make of makes\"> {{make.name}}</option>\n        <select>\n    "
+                        template: "\n        <input #input class=\"form-control\" type=\"text\" placeholder=\"Starts With\" [ngFormControl]=\"term\"/>\n    "
                     }), 
-                    __metadata('design:paramtypes', [car_makes_service_1.CarMakesService])
+                    __metadata('design:paramtypes', [])
                 ], CarMakesSearchComponent);
                 return CarMakesSearchComponent;
             }());
@@ -56,4 +55,4 @@ System.register(['@angular/core', './car-makes.service'], function(exports_1, co
     }
 });
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNhci1tYWtlcy9jYXItbWFrZXMtc2VhcmNoLmNvbXBvbmVudC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztZQVlBO2dCQUlJLGlDQUFxQixnQkFBaUM7b0JBQWpDLHFCQUFnQixHQUFoQixnQkFBZ0IsQ0FBaUI7b0JBSHRELFVBQUssR0FBUSxFQUFFLENBQUM7b0JBQ04sYUFBUSxHQUFHLElBQUksbUJBQVksRUFBRSxDQUFDO2dCQUl4QyxDQUFDO2dCQUVELDBDQUFRLEdBQVI7b0JBQUEsaUJBVUM7b0JBVEcsSUFBSSxDQUFDLGdCQUFnQixDQUFDLGFBQWEsRUFBRTt5QkFDaEMsU0FBUyxDQUNOLFVBQUEsSUFBSTt3QkFDQSxLQUFJLENBQUMsS0FBSyxHQUFHLElBQUksQ0FBQyxLQUFLLENBQUM7d0JBQ3hCLE9BQU8sQ0FBQyxHQUFHLENBQUMsS0FBSSxDQUFDLEtBQUssQ0FBQyxDQUFDO29CQUM1QixDQUFDLEVBQ0QsVUFBQSxLQUFLLElBQUksT0FBQSxPQUFPLENBQUMsS0FBSyxDQUFDLEtBQUssQ0FBQyxFQUFwQixDQUFvQixDQUNoQyxDQUFBO2dCQUVULENBQUM7Z0JBRUQsZ0RBQWMsR0FBZCxVQUFlLE1BQU07b0JBQ2pCLElBQUksQ0FBQyxRQUFRLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxNQUFNLENBQUMsS0FBSyxDQUFDLENBQUM7Z0JBQzVDLENBQUM7Z0JBcEJEO29CQUFDLGFBQU0sRUFBRTs7eUVBQUE7Z0JBWGI7b0JBQUMsZ0JBQVMsQ0FBQzt3QkFDUCxRQUFRLEVBQUMsa0JBQWtCO3dCQUMzQixRQUFRLEVBQUMsMEpBSVI7cUJBQ0osQ0FBQzs7MkNBQUE7Z0JBeUJGLDhCQUFDO1lBQUQsQ0F2QkEsQUF1QkMsSUFBQTtZQXZCRCw2REF1QkMsQ0FBQSIsImZpbGUiOiJjYXItbWFrZXMvY2FyLW1ha2VzLXNlYXJjaC5jb21wb25lbnQuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge0NvbXBvbmVudCwgRXZlbnRFbWl0dGVyLCBPdXRwdXQgLCBPbkluaXR9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHtDYXJNYWtlc1NlcnZpY2V9IGZyb20gJy4vY2FyLW1ha2VzLnNlcnZpY2UnO1xuXG5AQ29tcG9uZW50KHtcbiAgICBzZWxlY3RvcjonY2FyLW1ha2VzLXNlYXJjaCcsXG4gICAgdGVtcGxhdGU6YFxuICAgICAgICA8c2VsZWN0IChjaGFuZ2UpPVwic2VsZWN0T25DaGFuZ2UoJGV2ZW50KVwiPlxuICAgICAgICAgICAgPG9wdGlvbiAqbmdGb3I9XCJsZXQgbWFrZSBvZiBtYWtlc1wiPiB7e21ha2UubmFtZX19PC9vcHRpb24+XG4gICAgICAgIDxzZWxlY3Q+XG4gICAgYFxufSlcblxuZXhwb3J0IGNsYXNzIENhck1ha2VzU2VhcmNoQ29tcG9uZW50IGltcGxlbWVudHMgT25Jbml0e1xuICAgIG1ha2VzID0gPGFueT5bXTtcbiAgICBAT3V0cHV0KCkgc2VsZWN0ZWQgPSBuZXcgRXZlbnRFbWl0dGVyKCk7XG5cbiAgICBjb25zdHJ1Y3RvciggcHJpdmF0ZSBfY2FyTWFrZXNTZXJ2aWNlOiBDYXJNYWtlc1NlcnZpY2Upe1xuXG4gICAgfVxuXG4gICAgbmdPbkluaXQoKTphbnl7XG4gICAgICAgIHRoaXMuX2Nhck1ha2VzU2VydmljZS5mZXRjaEFsbE1ha2VzKClcbiAgICAgICAgICAgIC5zdWJzY3JpYmUoXG4gICAgICAgICAgICAgICAgZGF0YSA9PntcbiAgICAgICAgICAgICAgICAgICAgdGhpcy5tYWtlcyA9IGRhdGEubWFrZXM7XG4gICAgICAgICAgICAgICAgICAgIGNvbnNvbGUubG9nKHRoaXMubWFrZXMpO1xuICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgZXJyb3IgPT4gY29uc29sZS5lcnJvcihlcnJvcilcbiAgICAgICAgICAgIClcblxuICAgIH1cblxuICAgIHNlbGVjdE9uQ2hhbmdlKCRldmVudCl7XG4gICAgICAgIHRoaXMuc2VsZWN0ZWQuZW1pdCgkZXZlbnQudGFyZ2V0LnZhbHVlKTtcbiAgICB9XG59XG4iXSwic291cmNlUm9vdCI6Ii9zb3VyY2UvIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNhci1tYWtlcy9jYXItbWFrZXMtc2VhcmNoLmNvbXBvbmVudC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztZQVdBO2dCQUFBO29CQUNhLFVBQUssR0FBVSxHQUFHLENBQUM7b0JBQ2xCLFdBQU0sR0FBRyxJQUFJLG1CQUFZLEVBQUUsQ0FBQztvQkFDdEMsU0FBSSxHQUFHLElBQUksZ0JBQU8sRUFBRSxDQUFDO2dCQU96QixDQUFDO2dCQUxHLDBDQUFRLEdBQVI7b0JBQUEsaUJBSUM7b0JBSEcsSUFBSSxDQUFDLElBQUksQ0FBQyxZQUFZO3lCQUNqQixZQUFZLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQzt5QkFDeEIsU0FBUyxDQUFDLFVBQUEsSUFBSSxJQUFJLE9BQUEsS0FBSSxDQUFDLE1BQU0sQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLEVBQXRCLENBQXNCLENBQUMsQ0FBQztnQkFDbkQsQ0FBQztnQkFSRDtvQkFBQyxZQUFLLEVBQUU7O3NFQUFBO2dCQUNSO29CQUFDLGFBQU0sRUFBRTs7dUVBQUE7Z0JBVGI7b0JBQUMsZ0JBQVMsQ0FBQzt3QkFDUCxRQUFRLEVBQUMsa0JBQWtCO3dCQUMzQixRQUFRLEVBQUMsMkhBRVI7cUJBQ0osQ0FBQzs7MkNBQUE7Z0JBWUYsOEJBQUM7WUFBRCxDQVZBLEFBVUMsSUFBQTtZQVZELDZEQVVDLENBQUEiLCJmaWxlIjoiY2FyLW1ha2VzL2Nhci1tYWtlcy1zZWFyY2guY29tcG9uZW50LmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtDb21wb25lbnQsIEV2ZW50RW1pdHRlciwgSW5wdXQgLCBPdXRwdXQgLCBPbkluaXR9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHtDb250cm9sfSBmcm9tICdAYW5ndWxhci9jb21tb24nO1xuaW1wb3J0IHtDYXJNYWtlc1NlcnZpY2V9IGZyb20gJy4vY2FyLW1ha2VzLnNlcnZpY2UnO1xuXG5AQ29tcG9uZW50KHtcbiAgICBzZWxlY3RvcjonY2FyLW1ha2VzLXNlYXJjaCcsXG4gICAgdGVtcGxhdGU6YFxuICAgICAgICA8aW5wdXQgI2lucHV0IGNsYXNzPVwiZm9ybS1jb250cm9sXCIgdHlwZT1cInRleHRcIiBwbGFjZWhvbGRlcj1cIlN0YXJ0cyBXaXRoXCIgW25nRm9ybUNvbnRyb2xdPVwidGVybVwiLz5cbiAgICBgXG59KVxuXG5leHBvcnQgY2xhc3MgQ2FyTWFrZXNTZWFyY2hDb21wb25lbnQgaW1wbGVtZW50cyBPbkluaXR7XG4gICAgQElucHV0KCkgZGVsYXk6bnVtYmVyID0gMzAwO1xuICAgIEBPdXRwdXQoKSB1cGRhdGUgPSBuZXcgRXZlbnRFbWl0dGVyKCk7XG4gICAgdGVybSA9IG5ldyBDb250cm9sKCk7XG5cbiAgICBuZ09uSW5pdCgpe1xuICAgICAgICB0aGlzLnRlcm0udmFsdWVDaGFuZ2VzXG4gICAgICAgICAgICAuZGVib3VuY2VUaW1lKHRoaXMuZGVsYXkpXG4gICAgICAgICAgICAuc3Vic2NyaWJlKHRlcm0gPT4gdGhpcy51cGRhdGUuZW1pdCh0ZXJtKSk7XG4gICAgfVxufVxuIl0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9

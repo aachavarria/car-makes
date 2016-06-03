@@ -4,8 +4,12 @@ import {CarMakesListComponent} from './car-makes/car-makes-list.component';
 @Component({
     selector: 'my-app',
     template: `
-        <section>
-            <div class="brand">Car Makes</div>
+        <header>
+            <div class="container">
+                <h1>Car Makes</h1>
+            </div>
+        </header>
+        <section class="container">
             <car-makes-list></car-makes-list>
         </section>
     `,

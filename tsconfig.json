@@ -23,13 +23,10 @@
   "files": [
     "./dev/app.component.ts",
     "./dev/boot.ts",
+    "./dev/car-makes/car-makes-filter.pipe.ts",
     "./dev/car-makes/car-makes-list.component.ts",
+    "./dev/car-makes/car-makes-model-year.component.ts",
     "./dev/car-makes/car-makes-search.component.ts",
-    "./dev/car-makes/car-makes.service.ts",
-    "./dev/shopping-list/mock-shopping-list.ts",
-    "./dev/shopping-list/shopping-list-item.component.ts",
-    "./dev/shopping-list/shopping-list-new-item.component.ts",
-    "./dev/shopping-list/shopping-list.component.ts",
-    "./dev/shopping-list/shopping-list.service.ts"
+    "./dev/car-makes/car-makes.service.ts"
   ]
 }

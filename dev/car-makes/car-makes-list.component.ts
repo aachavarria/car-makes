@@ -1,29 +1,59 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output , OnInit} from '@angular/core';
 import {CarMakesService} from './car-makes.service';
 import {CarMakesSearchComponent} from './car-makes-search.component';
+import {CarMakesModelYearComponent} from './car-makes-model-year.component';
+import {SearchPipe} from './car-makes-filter.pipe';
 
 @Component({
     selector:'car-makes-list',
     template:`
-        <section>
-            <car-makes-search (selected)="onSelected($event)"></car-makes-search>
-        </section>
-        <section>
-            <h3>My list</h3>
-            <div class="list">
-                <ul>
-                    <li>item 1</li>
-                </ul>
+        <section class="box">
+            <div class="filter-container">
+                <car-makes-search [delay]="500" (update)="term = $event"></car-makes-search>
+            </div>
+            <div class="table-container">
+                <table class="table table-hover table-bordered">
+                    <tr *ngFor="let make of makes | search:term" >
+                        <td (click)="onSelected(make)">{{make.name}}</td>
+                    <tr>
+                </table>
             </div>
         </section>
-
+        <section *ngIf="selected != '' " class="box second">
+            <div class="table-container">
+                <table class="table table-hover table-bordered">
+                    <tr><th>Model</th><th>First year</th></tr>
+                    <tr *ngFor="let model of selected.models" [tableData]="{make:selected.niceName,model:model.niceName}"></tr>
+                </table>
+            </div>
+        </section >
     `,
-    directives: [CarMakesSearchComponent],
-    providers: [CarMakesService]
+    directives: [CarMakesSearchComponent,CarMakesModelYearComponent],
+    providers: [CarMakesService],
+    pipes:[SearchPipe]
 })
 
-export class CarMakesListComponent{
-    onSelected(selected){
-        console.log(selected);
+export class CarMakesListComponent implements OnInit{
+    makes = <any>[];
+    term = '';
+    selected = <any>[];
+
+    constructor( private _carMakesService: CarMakesService){
+    }
+
+    onSelected(item){
+        this.selected = item;
+    }
+
+    ngOnInit():any{
+        this._carMakesService.fetchAllMakes()
+            .subscribe(
+                data =>{
+                    this.makes = data.makes;
+                    console.log(this.makes);
+                },
+                error => console.error(error)
+            )
+
     }
 }
